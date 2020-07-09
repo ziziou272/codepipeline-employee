@@ -12,6 +12,7 @@ phases:
       - echo Build started on `date`
       - export BUCKET=aws-sam-cli-managed-default-samclisourcebucket-1dx28ud84hzuq
       - mvn package shade:shade
+      - unzip target/HelloWorld-1.0.jar
       - aws cloudformation package --template-file template.yaml --s3-bucket $BUCKET --output-template-file outputtemplate.yaml
   post_build:
     commands:
