@@ -1,0 +1,25 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: openjdk8
+  pre_build:
+    commands:
+      - echo Test started on `date`
+      - mvn clean compile test
+  build:
+    commands:
+      - echo Build started on `date`
+      - export BUCKET=aws-sam-cli-managed-default-samclisourcebucket-1dx28ud84hzuq
+      - cd HelloWorldFunction
+      - mvn package shade:shade
+      - unzip target/HelloWorld-1.0.jar
+      - aws cloudformation package --template-file template.yaml --s3-bucket $BUCKET --output-template-file outputtemplate.yaml
+  post_build:
+    commands:
+      - echo Build completed on `date` !!!
+artifacts:
+  files:
+    - target/HelloWorld-1.0.jar
+    - template.yaml
+    - outputtemplate.yaml
