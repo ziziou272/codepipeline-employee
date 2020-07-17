@@ -44,7 +44,7 @@ public class EmployeeHandler  {
     public APIGatewayProxyResponseEvent read(APIGatewayProxyRequestEvent request, Context context) {
         DynamoDBMapper mapper = this.initDynamoDbClient();
 
-        String id = request.getPathParameters().get("id");
+        String id = request.getPath();
         Employee employee = mapper.load(Employee.class, id);
         try {
             ObjectMapper objectMapper = new ObjectMapper();
