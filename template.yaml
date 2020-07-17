@@ -55,7 +55,7 @@ Resources:
     Type: AWS::Serverless::SimpleTable
     Properties:
       TableName:
-        Fn::Sub: Employee
+        Fn::Sub: Employee2
       PrimaryKey:
         Name: id
         Type: String
