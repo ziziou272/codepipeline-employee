@@ -33,7 +33,7 @@ Resources:
             RestApiId:
               Ref: RestApi
 
-  GetTaskFunction:
+  GetEmployeeFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: target/HelloWorld-1.0.jar
@@ -62,3 +62,20 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
+Outputs:
+
+  RestApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/employee/"
+  CreateEmployeeFunction:
+    Description: "CreateEmployeeFunctionARN"
+    Value: !GetAtt CreateEmployeeFunction.Arn
+  CreateEmployeeFunctionIamRole:
+    Description: "Implicit IAM Role created for CreateEmployeeFunction"
+    Value: !GetAtt CreateEmployeeFunctionRole.Arn
+  GetEmployeeFunction:
+    Description: "CreateEmployeeFunctionARN"
+    Value: !GetAtt GetEmployeeFunction.Arn
+  GetEmployeeFunctionIamRole:
+    Description: "Implicit IAM Role created for CreateEmployeeFunction"
+    Value: !GetAtt GetEmployeeFunctionRole.Arn
