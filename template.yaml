@@ -36,7 +36,7 @@ Resources:
       Policies:
         DynamoDBCrudPolicy:
           TableName:
-            Ref: Employee
+            Ref: EmployeeTable
       Events:
         List:
           Type: Api
@@ -56,7 +56,7 @@ Resources:
       Policies:
         DynamoDBReadPolicy:
           TableName:
-            Ref: Employee
+            Ref: EmployeeTable
       Events:
         List:
           Type: Api
@@ -66,11 +66,11 @@ Resources:
             RestApiId:
               Ref: RestApi
 
-  TasksTable:
+  EmployeeTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
       TableName:
-        Fn::Sub: employee-crud-employee
+        Fn::Sub: Employee
       PrimaryKey:
         Name: id
         Type: String
