@@ -16,32 +16,32 @@ public class Employee {
     private String email;
 
     //set primary key as id
-    @DynamoDBHashKey(attributeName = "ID")
+    @DynamoDBHashKey(attributeName = "id")
     public String getID() {
         return id;
     }
 
-    @DynamoDBAttribute(attributeName = "UserName")
+    @DynamoDBAttribute(attributeName = "userName")
     public String getUserName() {
         return userName;
     }
 
-    @DynamoDBAttribute(attributeName = "FirstName")
+    @DynamoDBAttribute(attributeName = "firstName")
     public String getFirstName() {
         return firstName;
     }
 
-    @DynamoDBAttribute(attributeName = "LastName")
+    @DynamoDBAttribute(attributeName = "lastName")
     public String getLastName() {
         return lastName;
     }
 
-    @DynamoDBAttribute(attributeName = "PhoneNumber")
+    @DynamoDBAttribute(attributeName = "phoneNumber")
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    @DynamoDBAttribute(attributeName = "Email")
+    @DynamoDBAttribute(attributeName = "email")
     public String getEmail() {
         return email;
     }
