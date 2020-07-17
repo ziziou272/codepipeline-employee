@@ -10,27 +10,17 @@ Globals:
     Runtime: java8
     MemorySize: 256
 
-Parameters:
-  StageName:
-    Type: String
-    Default: dev
-    Description: The Lambda Function Stage
-
 Resources:
 
   RestApi:
     Type: AWS::Serverless::Api
     Properties:
-      Name:
-        Fn::Sub: employee-crud-api-${StageName}
       StageName:
         Ref: StageName
 
   CreateEmployeeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName:
-        Fn::Sub: employee-crud-create-employee-${StageName}
       CodeUri: target/HelloWorld-1.0.jar
       Handler: helloworld.EmployeeHandler::create
       Policies:
@@ -49,8 +39,6 @@ Resources:
   GetTaskFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName:
-        Fn::Sub: employee-crud-read-employee-${StageName}
       CodeUri: target/HelloWorld-1.0.jar
       Handler: helloworld.EmployeeHandler::read
       Policies:
