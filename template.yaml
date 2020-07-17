@@ -10,6 +10,12 @@ Globals:
     Runtime: java8
     MemorySize: 256
 
+Parameters:
+  StageName:
+    Type: String
+    Default: dev
+    Description: The Lambda Function Stage
+
 Resources:
 
   RestApi:
