@@ -14,6 +14,8 @@ Resources:
 
   RestApi:
     Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
 
   CreateEmployeeFunction:
     Type: AWS::Serverless::Function
