@@ -45,7 +45,7 @@ public class EmployeeHandler  {
         DynamoDBMapper mapper = this.initDynamoDbClient();
 
         String[] arr = request.getPath().split("/");
-        String id = arr[1];
+        String id = arr[2];
         Employee employee = mapper.load(Employee.class, id);
         try {
             ObjectMapper objectMapper = new ObjectMapper();
