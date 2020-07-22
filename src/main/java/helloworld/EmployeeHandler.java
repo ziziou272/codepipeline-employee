@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Employee CRUD lambda function handlers
+ */
 public class EmployeeHandler  {
 
     private DynamoDBMapper initDynamoDbClient() {
