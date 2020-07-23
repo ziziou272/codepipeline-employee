@@ -81,7 +81,7 @@ public class EmployeeHandler  {
         }
     }
 
-    public APIGatewayProxyResponseEvent deleteTask(APIGatewayProxyRequestEvent request, Context context) {
+    public APIGatewayProxyResponseEvent delete(APIGatewayProxyRequestEvent request, Context context) {
         DynamoDBMapper mapper = this.initDynamoDbClient();
         String employeeId = request.getPathParameters().get("id");
         mapper.delete(employeeId);
@@ -89,7 +89,7 @@ public class EmployeeHandler  {
         return new APIGatewayProxyResponseEvent().withStatusCode(200);
     }
 
-    public APIGatewayProxyResponseEvent getAllEmployees(APIGatewayProxyRequestEvent request, Context context){
+    public APIGatewayProxyResponseEvent getAll(APIGatewayProxyRequestEvent request, Context context){
         DynamoDBMapper mapper = this.initDynamoDbClient();
         List<Employee> employeeList = mapper.scan(Employee.class, new DynamoDBScanExpression());
 

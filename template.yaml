@@ -51,6 +51,24 @@ Resources:
             RestApiId:
               Ref: RestApi
 
+  ListAllEmployeeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/HelloWorld-1.0.jar
+      Handler: helloworld.EmployeeHandler::getAll
+      Policies:
+        DynamoDBReadPolicy:
+          TableName:
+            Ref: EmployeeTable
+      Events:
+        List:
+          Type: Api
+          Properties:
+            Path: /Employee
+            Method: GET
+            RestApiId:
+              Ref: RestApi
+
   UpdateEmployeeFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -65,7 +83,7 @@ Resources:
           Type: Api
           Properties:
             Path: /Employee/{id}
-            Method: GET
+            Method: PUT
             RestApiId:
               Ref: RestApi
 
@@ -83,10 +101,9 @@ Resources:
           Type: Api
           Properties:
             Path: /Employee/{id}
-            Method: GET
+            Method: DELETE
             RestApiId:
               Ref: RestApi
-
 
   EmployeeTable:
     Type: AWS::Serverless::SimpleTable
@@ -114,3 +131,15 @@ Outputs:
   GetEmployeeFunctionIamRole:
     Description: "Implicit IAM Role created for CreateEmployeeFunction"
     Value: !GetAtt GetEmployeeFunctionRole.Arn
+  UpdateEmployeeFunction:
+    Description: "UpdateEmployeeFunctionARN"
+    Value: !GetAtt UpdateEmployeeFunction.Arn
+  UpdateEmployeeFunctionIamRole:
+    Description: "Implicit IAM Role created for UpdateEmployeeFunction"
+    Value: !GetAtt UpdateEmployeeFunctionIamRole.Arn
+  DeleteEmployeeFunction:
+    Description: "DeleteEmployeeFunctionARN"
+    Value: !GetAtt DeleteEmployeeFunction.Arn
+  DeleteEmployeeFunctionIamRole:
+    Description: "Implicit IAM Role created for DeleteEmployeeFunction"
+    Value: !GetAtt DeleteEmployeeFunctionIamRole.Arn
