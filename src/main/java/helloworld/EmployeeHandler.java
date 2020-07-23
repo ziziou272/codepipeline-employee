@@ -7,6 +7,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -85,5 +87,22 @@ public class EmployeeHandler  {
         mapper.delete(employeeId);
 
         return new APIGatewayProxyResponseEvent().withStatusCode(200);
+    }
+
+    public APIGatewayProxyResponseEvent getAllEmployees(APIGatewayProxyRequestEvent request, Context context){
+        DynamoDBMapper mapper = this.initDynamoDbClient();
+        List<Employee> employeeList = mapper.scan(Employee.class, new DynamoDBScanExpression());
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonInString = objectMapper.writeValueAsString(employeeList);
+
+            Map<String, String> headers = new HashMap<String, String>();
+            headers.put("Content-Type", "application/json");
+            return new APIGatewayProxyResponseEvent().withStatusCode(200).withHeaders(headers).withBody(jsonInString);
+        } catch(JsonProcessingException e) {
+            e.printStackTrace();
+            return new APIGatewayProxyResponseEvent().withStatusCode(500);
+        }
     }
 }
