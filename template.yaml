@@ -51,6 +51,43 @@ Resources:
             RestApiId:
               Ref: RestApi
 
+  UpdateEmployeeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/HelloWorld-1.0.jar
+      Handler: helloworld.EmployeeHandler::update
+      Policies:
+        DynamoDBReadPolicy:
+          TableName:
+            Ref: EmployeeTable
+      Events:
+        List:
+          Type: Api
+          Properties:
+            Path: /Employee/{id}
+            Method: GET
+            RestApiId:
+              Ref: RestApi
+
+  DeleteEmployeeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/HelloWorld-1.0.jar
+      Handler: helloworld.EmployeeHandler::delete
+      Policies:
+        DynamoDBReadPolicy:
+          TableName:
+            Ref: EmployeeTable
+      Events:
+        List:
+          Type: Api
+          Properties:
+            Path: /Employee/{id}
+            Method: GET
+            RestApiId:
+              Ref: RestApi
+
+
   EmployeeTable:
     Type: AWS::Serverless::SimpleTable
     Properties:

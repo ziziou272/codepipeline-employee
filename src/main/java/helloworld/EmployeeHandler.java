@@ -28,7 +28,6 @@ public class EmployeeHandler  {
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
         return new DynamoDBMapper(client);
     }
-
     public APIGatewayProxyResponseEvent create(APIGatewayProxyRequestEvent request, Context context) {
         DynamoDBMapper mapper = this.initDynamoDbClient();
 
@@ -61,5 +60,30 @@ public class EmployeeHandler  {
             e.printStackTrace();
             return new APIGatewayProxyResponseEvent().withStatusCode(500);
         }
+    }
+
+    public APIGatewayProxyResponseEvent update(APIGatewayProxyRequestEvent request, Context context) {
+        DynamoDBMapper mapper = this.initDynamoDbClient();
+        String body = request.getBody();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Employee employee;
+
+        try {
+            employee = objectMapper.readValue(body, Employee.class);
+            mapper.save(employee);
+            return new APIGatewayProxyResponseEvent().withStatusCode(200);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new APIGatewayProxyResponseEvent().withStatusCode(500);
+        }
+    }
+
+    public APIGatewayProxyResponseEvent deleteTask(APIGatewayProxyRequestEvent request, Context context) {
+        DynamoDBMapper mapper = this.initDynamoDbClient();
+        String employeeId = request.getPathParameters().get("id");
+        mapper.delete(employeeId);
+
+        return new APIGatewayProxyResponseEvent().withStatusCode(200);
     }
 }
