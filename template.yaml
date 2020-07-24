@@ -18,7 +18,8 @@ Resources:
   CreateEmployeeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: target/HelloWorld-1.0.jar
+      # CodeUri: target/HelloWorld-1.0.jar
+      CodeUri: ./
       Handler: helloworld.EmployeeHandler::create
       Policies:
         DynamoDBCrudPolicy:
@@ -90,8 +91,10 @@ Resources:
   DeleteEmployeeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: target/HelloWorld-1.0.jar
+      #CodeUri: target/HelloWorld-1.0.jar
+      CodeUri: ./
       Handler: helloworld.EmployeeHandler::delete
+      Role: !GetAtt EmployeeCRUDRole.Arn
       Policies:
         DynamoDBReadPolicy:
           TableName:
@@ -114,6 +117,33 @@ Resources:
         Name: id
         Type: String
 
+#https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
+  EmployeeCRUDRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: "2012-10-17",
+            Statement:
+              - Sid: VisualEditor0,
+                Effect: Allow,
+                Action: dynamodb:*,
+                Resource:
+                  -
+                    arn:aws:dynamodb:us-east-1:842282320396:table/Employee2,
+                    arn:aws:dynamodb:us-east-1:842282320396:table/Employee2/index/*
+
+
 Outputs:
 
   RestApi:
@@ -127,6 +157,7 @@ Outputs:
     Value: !GetAtt CreateEmployeeFunctionRole.Arn
   GetEmployeeFunction:
     Description: "CreateEmployeeFunctionARN"
+    #!GetAtt returns the value of an attribute from a resource in the template
     Value: !GetAtt GetEmployeeFunction.Arn
   GetEmployeeFunctionIamRole:
     Description: "Implicit IAM Role created for CreateEmployeeFunction"
