@@ -170,6 +170,3 @@ Outputs:
   DeleteEmployeeFunction:
     Description: "DeleteEmployeeFunctionARN"
     Value: !GetAtt DeleteEmployeeFunction.Arn
-  DeleteEmployeeFunctionIamRole:
-    Description: "Implicit IAM Role created for DeleteEmployeeFunction"
-    Value: !GetAtt DeleteEmployeeFunctionRole.Arn
