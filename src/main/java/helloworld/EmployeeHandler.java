@@ -83,8 +83,9 @@ public class EmployeeHandler  {
 
     public APIGatewayProxyResponseEvent delete(APIGatewayProxyRequestEvent request, Context context) {
         DynamoDBMapper mapper = this.initDynamoDbClient();
-        String employeeId = request.getPathParameters().get("id");
-        mapper.delete(employeeId);
+        String[] arr = request.getPath().split("/");
+        String id = arr[2];
+        mapper.delete(id);
 
         return new APIGatewayProxyResponseEvent().withStatusCode(200);
     }
