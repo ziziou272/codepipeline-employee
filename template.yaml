@@ -136,10 +136,10 @@ Outputs:
     Value: !GetAtt UpdateEmployeeFunction.Arn
   UpdateEmployeeFunctionIamRole:
     Description: "Implicit IAM Role created for UpdateEmployeeFunction"
-    Value: !GetAtt UpdateEmployeeFunctionIamRole.Arn
+    Value: !GetAtt UpdateEmployeeFunctionRole.Arn
   DeleteEmployeeFunction:
     Description: "DeleteEmployeeFunctionARN"
     Value: !GetAtt DeleteEmployeeFunction.Arn
   DeleteEmployeeFunctionIamRole:
     Description: "Implicit IAM Role created for DeleteEmployeeFunction"
-    Value: !GetAtt DeleteEmployeeFunctionIamRole.Arn
+    Value: !GetAtt DeleteEmployeeFunctionRole.Arn
