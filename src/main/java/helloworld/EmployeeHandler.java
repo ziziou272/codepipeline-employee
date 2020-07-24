@@ -85,7 +85,7 @@ public class EmployeeHandler  {
         DynamoDBMapper mapper = this.initDynamoDbClient();
         String[] arr = request.getPath().split("/");
         String id = arr[2];
-        mapper.delete(id);
+        mapper.delete(mapper.load(Employee.class, id));
 
         return new APIGatewayProxyResponseEvent().withStatusCode(200);
     }
