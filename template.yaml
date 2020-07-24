@@ -133,16 +133,15 @@ Resources:
       Policies:
         - PolicyName: root
           PolicyDocument:
-            Version: "2012-10-17",
+            Version: "2012-10-17"
             Statement:
-              - Sid: VisualEditor0,
-                Effect: Allow,
-                Action: dynamodb:*,
+              - Sid: VisualEditor0
+                Effect: Allow
+                Action: dynamodb:*
                 Resource:
                   -
-                    arn:aws:dynamodb:us-east-1:842282320396:table/Employee2,
+                    arn:aws:dynamodb:us-east-1:842282320396:table/Employee2
                     arn:aws:dynamodb:us-east-1:842282320396:table/Employee2/index/*
-
 
 Outputs:
 
