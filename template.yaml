@@ -18,8 +18,8 @@ Resources:
   CreateEmployeeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      # CodeUri: target/HelloWorld-1.0.jar
-      CodeUri: ./
+      CodeUri: target/HelloWorld-1.0.jar
+      #CodeUri: ./
       Handler: helloworld.EmployeeHandler::create
       Policies:
         DynamoDBCrudPolicy:
@@ -91,8 +91,8 @@ Resources:
   DeleteEmployeeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      #CodeUri: target/HelloWorld-1.0.jar
-      CodeUri: ./
+      CodeUri: target/HelloWorld-1.0.jar
+      #CodeUri: ./
       Handler: helloworld.EmployeeHandler::delete
       Role: !GetAtt EmployeeCRUDRole.Arn
       Policies:
