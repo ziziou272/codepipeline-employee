@@ -1,5 +1,6 @@
 package helloworld;
 
+import com.amazon.dax.client.dynamodbv2.AmazonDaxClientBuilder;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
@@ -30,6 +31,14 @@ public class EmployeeHandler  {
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
         return new DynamoDBMapper(client);
     }
+
+    private DynamoDBMapper initDax(){
+        AmazonDaxClientBuilder daxClientBuilder = AmazonDaxClientBuilder.standard();
+        //todo
+        daxClientBuilder.withRegion("us-east-1").withEndpointConfiguration("");
+        AmazonDynamoDB client = daxClientBuilder.build();
+        return new DynamoDBMapper(client);
+    }
     public APIGatewayProxyResponseEvent create(APIGatewayProxyRequestEvent request, Context context) {
         DynamoDBMapper mapper = this.initDynamoDbClient();
 
@@ -38,7 +47,8 @@ public class EmployeeHandler  {
         try {
             Employee employee = objectMapper.readValue(body, Employee.class);
             mapper.save(employee);
-            return new APIGatewayProxyResponseEvent().withStatusCode(201);
+            String jsonString = objectMapper.writeValueAsString(employee);
+            return new APIGatewayProxyResponseEvent().withStatusCode(201).withBody(jsonString);
         } catch (IOException e) {
             e.printStackTrace();
             return new APIGatewayProxyResponseEvent().withStatusCode(500);
@@ -74,7 +84,8 @@ public class EmployeeHandler  {
         try {
             employee = objectMapper.readValue(body, Employee.class);
             mapper.save(employee);
-            return new APIGatewayProxyResponseEvent().withStatusCode(200);
+            String jsonString = objectMapper.writeValueAsString(employee);
+            return new APIGatewayProxyResponseEvent().withStatusCode(200).withBody(jsonString);
         } catch (IOException e) {
             e.printStackTrace();
             return new APIGatewayProxyResponseEvent().withStatusCode(500);

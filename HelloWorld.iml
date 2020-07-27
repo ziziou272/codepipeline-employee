@@ -29,5 +29,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.6.7" level="project" />
     <orderEntry type="library" name="Maven: com.amazonaws:jmespath-java:1.11.820" level="project" />
     <orderEntry type="library" name="Maven: com.amazonaws:aws-java-sdk-dynamodb:1.11.820" level="project" />
+    <orderEntry type="library" name="Maven: com.amazonaws:amazon-dax-client:1.0.200704.0" level="project" />
   </component>
 </module>
