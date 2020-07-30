@@ -41,6 +41,11 @@
             <artifactId>amazon-dax-client</artifactId>
             <version>1.0.200704.0</version>
         </dependency>
+        <dependency>
+            <groupId>ch.hsr</groupId>
+            <artifactId>geohash</artifactId>
+            <version>1.4.0</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

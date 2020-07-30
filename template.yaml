@@ -108,11 +108,40 @@ Resources:
             RestApiId:
               Ref: RestApi
 
+  GetPropertyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/HelloWorld-1.0.jar
+      #CodeUri: ./
+      Handler: map.getProperty::handleRequest
+      Policies:
+        DynamoDBReadPolicy:
+          TableName:
+            Ref: GeoTable
+      Events:
+        List:
+          Type: Api
+          Properties:
+            Path: /Map/{latitude&longitude}
+            Method: GET
+            RestApiId:
+              Ref: RestApi
+
+
   EmployeeTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
       TableName:
         Fn::Sub: Employee2
+      PrimaryKey:
+        Name: id
+        Type: String
+
+  GeoTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName:
+        Fn::Sub: GeoTable
       PrimaryKey:
         Name: id
         Type: String
